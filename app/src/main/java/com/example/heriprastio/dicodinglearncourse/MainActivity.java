@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvResult = findViewById(R.id.tv_result);
         btnInten = findViewById(R.id.btn_inten);
         btnCalculate.setOnClickListener(this);
-//        btnInten.setOnClickListener(this);
+        btnInten.setOnClickListener(this);
         if (savedInstanceState != null) {
             String hasil = savedInstanceState.getString(STATE_HASIL);
             tvResult.setText(hasil);
@@ -46,30 +46,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.btn_calculate) {
-            String length = edtLength.getText().toString().trim();
-            String width = edtWidth.getText().toString().trim();
-            String height = edtHeight.getText().toString().trim();
-            boolean ismEmpetyFields = false;
-            if (TextUtils.isEmpty(length)) {
-                ismEmpetyFields = true;
-                edtLength.setError("Field Bagian Ini Tidak Boleh Kosong");
-            }
-            if (TextUtils.isEmpty(width)) {
-                ismEmpetyFields = true;
-                edtWidth.setError("Field Bagian Ini Tidak Boleh Kosong");
-            }
-            if (TextUtils.isEmpty(height)) {
-                ismEmpetyFields = true;
-                edtHeight.setError("Field Bagian Ini Tidak Boleh Kosong");
-            }
-            if (!ismEmpetyFields) {
-                double l = Double.parseDouble(length);
-                double w = Double.parseDouble(width);
-                double h = Double.parseDouble(height);
-                double volume = l * w * h;
-                tvResult.setText(String.valueOf(volume));
-            }
+        switch (view.getId()) {
+            case R.id.btn_calculate:
+                String length = edtLength.getText().toString().trim();
+                String width = edtWidth.getText().toString().trim();
+                String height = edtHeight.getText().toString().trim();
+                boolean ismEmpetyFields = false;
+                if (TextUtils.isEmpty(length)) {
+                    ismEmpetyFields = true;
+                    edtLength.setError("Field Bagian Ini Tidak Boleh Kosong");
+                }
+                if (TextUtils.isEmpty(width)) {
+                    ismEmpetyFields = true;
+                    edtWidth.setError("Field Bagian Ini Tidak Boleh Kosong");
+                }
+                if (TextUtils.isEmpty(height)) {
+                    ismEmpetyFields = true;
+                    edtHeight.setError("Field Bagian Ini Tidak Boleh Kosong");
+                }
+                if (!ismEmpetyFields) {
+                    double l = Double.parseDouble(length);
+                    double w = Double.parseDouble(width);
+                    double h = Double.parseDouble(height);
+                    double volume = l * w * h;
+                    tvResult.setText(String.valueOf(volume));
+                }
+                break;
+
+            case R.id.btn_inten:
+                Intent i = new Intent(MainActivity.this, IntentActivity.class);
+                startActivity(i);
+                break;
         }
 
     }
